@@ -83,7 +83,7 @@ class _SecondPageScreenState extends State<SecondPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Seconf trial")),
+        appBar: AppBar(title: Text("Second trial")),
         body: Container(
             child: Stack(
           children: [
@@ -94,7 +94,7 @@ class _SecondPageScreenState extends State<SecondPageScreen> {
                 mainAxisSpacing: 0,
                 crossAxisCount: 6,
               ),
-              itemBuilder: (BuildContext ctx, int index) {
+              itemBuilder: (BuildContext context, int index) {
                 int column = index % matrix.length;
                 int row = index ~/ matrix.length;
                 return matrix[column][row] != 0

@@ -30,15 +30,19 @@ class _ThirdPageScreenState extends State<ThirdPageScreen> {
   ];
 
   int num = 1;
+  List zim = [];
 
-  void generate() {
+  int generate() {
     Random rand = Random();
-    setState(() {
-      num = rand.nextInt(100);
-    });
+    List arr = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024];
+    int i = rand.nextInt(10) + 0;
+    zim.add(arr[i]);
+    zim.removeAt(0);
+    setState(() {});
+    return arr[i];
   }
 
-  void insertAtPosition(int column, int num) {
+  insertAtPosition(int column, int num) {
     for (int i = 0; i < matrix[column].length; i++) {
       if (matrix[column][i] == 0) {
         setState(() {
@@ -53,9 +57,37 @@ class _ThirdPageScreenState extends State<ThirdPageScreen> {
 
   @override
   void initState() {
+    zim = [generate(), generate()];
     generate();
     // TODO: implement initState
     super.initState();
+  }
+
+  Color returnColor(int i) {
+    switch (i) {
+      case 2:
+        return Colors.greenAccent;
+      case 4:
+        return Colors.amber;
+      case 8:
+        return Colors.grey;
+      case 16:
+        return Colors.blue;
+      case 32:
+        return Colors.redAccent;
+      case 64:
+        return Colors.pinkAccent;
+      case 128:
+        return Colors.indigo;
+      case 256:
+        return Colors.yellowAccent;
+      case 512:
+        return Colors.orangeAccent;
+      case 1024:
+        return Colors.amberAccent;
+      default:
+        return Colors.black;
+    }
   }
 
   @override
@@ -68,126 +100,180 @@ class _ThirdPageScreenState extends State<ThirdPageScreen> {
             GridView.builder(
               itemCount: matrix.length * matrix.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: 3,
-                mainAxisSpacing: 3,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0,
                 crossAxisCount: 10,
               ),
-              itemBuilder: (BuildContext ctx, int index) {
+              itemBuilder: (BuildContext context, int index) {
                 int column = index % matrix.length;
                 int row = index ~/ matrix.length;
                 return matrix[column][row] != 0
-                    ? Container(
-                        color: Colors.red,
-                        child:
-                            Center(child: Text(matrix[column][row].toString())),
-                      )
+                    ? Card(
+                        elevation: 9,
+                        color: returnColor(matrix[column][row]),
+                        child: Center(
+                          child: Text(matrix[column][row].toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
+                        ))
                     : Container();
               },
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
               children: [
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(0, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    width: MediaQuery.of(context).size.width / 4,
-                    color: Colors.amber.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(1, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.green.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(2, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.amber.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(3, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.grey.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(4, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.orangeAccent.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(5, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.grey.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(6, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.greenAccent.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(7, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.grey.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(8, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.greenAccent.withOpacity(0.2),
-                  ),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    insertAtPosition(9, num);
-                  },
-                  child: Container(
-                    height: 500,
-                    color: Colors.orangeAccent.withOpacity(0.2),
-                  ),
-                )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(0, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        width: MediaQuery.of(context).size.width / 4,
+                        color: Colors.amber.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(1, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.green.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(2, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.amber.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(3, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.grey.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(4, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.orangeAccent.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(5, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.grey.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(6, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.greenAccent.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(7, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.grey.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(8, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.greenAccent.withOpacity(0.2),
+                      ),
+                    )),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        insertAtPosition(9, zim[0]);
+                      },
+                      child: Container(
+                        height: 500,
+                        color: Colors.orangeAccent.withOpacity(0.2),
+                      ),
+                    )),
+                  ],
+                ),
+                Container(
+                  color: Colors.grey.withOpacity(0.5),
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Card(
+                          child: Container(
+                              decoration: BoxDecoration(
+
+                                  /// border: Border.all(),
+                                  color: returnColor(zim[0])),
+                              height: 50,
+                              width: 50,
+                              child: Center(
+                                  child: Text(
+                                zim[0].toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ))),
+                        ),
+                        SizedBox(
+                          width: 40,
+                        ),
+                        Card(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  //border: Border.all(),
+                                  color: returnColor(zim[1])),
+                              height: 30,
+                              width: 30,
+                              child: Center(
+                                  child: Text(
+                                zim[1].toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ))),
+                        ),
+                      ]),
+                )
               ],
             ),
           ],
