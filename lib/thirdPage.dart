@@ -1,10 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:block_app/main.dart';
-import 'package:block_app/homePage.dart';
+
+
 
 class ThirdPageScreen extends StatefulWidget {
   ThirdPageScreen({Key? key}) : super(key: key);
